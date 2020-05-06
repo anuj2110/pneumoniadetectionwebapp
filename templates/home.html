@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pneumonia Detection Project</title>
-</head>
-<body>
-    <img src="" alt="">
-    <form action="/success" method="POST" enctype="multipart/form-data">
+{% extends 'base.html' %}
+
+{% block content%}
+<center><img src="{{ url_for('static', filename= filename) }}" alt=""></center>
+<br>
+<br>
+{% if show==True %}
+<center>
+
+    {% if message=="healthy" %}
+    <h3><span class="badge badge-success">{{message}}</span></h3>
+    {%endif%}
+
+    {% if message=="pneumonic" %}
+    <h3><span class="badge badge-danger">{{message}}</span></h3>
+    {%endif%}
+    <br>
+    <br>
+
+    <a href="/" class="btn btn-info" role="button">Go Back</a>
+</center>
+{% else %}
+<center>
+    <form action="/" method="POST" enctype="multipart/form-data">
         <input type="file" name="img" id="img">
-        <input type="submit" value="Upload Img">
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</body>
-</html>
+    <br>
+    <br>
+    {{message}}
+</center>
+{% endif %}
+{% endblock%}
