@@ -23,12 +23,13 @@ train_dir = base_dir+"\\Pneumonia_Detection\\chest_xray\\train" #
 val_dir = base_dir+"\\Pneumonia_Detection\\chest_xray\\val"     # -- Directories for data
 test_dir = base_dir+"\\Pneumonia_Detection\\chest_xray\\test"   # 
 
+# loading the VGG16 model with imagenet weights without the FC layers
 vgg = VGG16(weights='imagenet',include_top=False,input_shape=(224,224,3))
 for layer in vgg.layers:
-    layer.trainable = False
+    layer.trainable = False #making all the layers non-trainable
     
-x = Flatten()(vgg.output)
-predictions = Dense(2,activation='softmax')(x)
+x = Flatten()(vgg.output) #flattening out the last layer
+predictions = Dense(2,activation='softmax')(x) #Dense layer to predict wether their is pneumonia or not
 model = Model(inputs=vgg.input, outputs=predictions)
 model.summary()
 
@@ -48,63 +49,6 @@ test_data_gen = train_gen.flow_from_directory(test_dir,
                                                target_shape,
                                                batch_size=16,
                                                class_mode='categorical') # function to make iterable object for training
-
-# Model Building
-# def resblock(x,filters,down=False):
-#     #fucntion to create a resblock for the model
-    
-#     merge_input = x
-#     f1,f2 = filters
-#     if x.shape[-1] != f2:
-#         merge_input = Conv2D(f2, (1,1), padding='same', activation='relu', kernel_initializer='he_normal')(x)
-#     # conv1
-#     conv1 = Conv2D(f1, (3,3), padding='same', activation='relu', kernel_initializer='he_normal')(x)
-#     conv1 = BatchNormalization()(conv1)
-#     # conv2
-#     conv2 = Conv2D(f2, (3,3), padding='same', activation='linear', kernel_initializer='he_normal')(conv1)
-#     conv2 = BatchNormalization()(conv2)
-#     # add filters, assumes filters/channels last
-#     layer_out = add([conv2, merge_input])
-#     # activation function
-#     layer_out = Activation('relu')(layer_out)
-#     return layer_out
-
-# inp = Input(shape=(196,196,3)) #Input layer of CNN
-# #layer 1 
-# conv_block1 = resblock(inp,[32,32])
-# conv_block1 = BatchNormalization()(conv_block1)
-# conv_block1 = Dropout(0.2)(conv_block1)
-# conv1 = Conv2D(64,(3,3),padding='same',strides=(2,2),activation='relu')(conv_block1)
-# conv1 = BatchNormalization()(conv1)
-# #layer 2
-# conv_block2 = resblock(conv1,[64,128])
-# conv_block2 = BatchNormalization()(conv_block2)
-# conv_block2 = Dropout(0.2)(conv_block2)
-# conv2 = Conv2D(128,(3,3),padding='same',strides=(2,2),activation='relu')(conv_block2)
-# conv2 = BatchNormalization()(conv2)
-# #layer 3
-# conv_block3 = resblock(conv2,[128,256])
-# conv_block3 = BatchNormalization()(conv_block3)
-# conv_block3 = Dropout(0.2)(conv_block3)
-# conv3 = Conv2D(256,(3,3),padding='same',strides=(4,4),activation='relu')(conv_block3)
-# conv3 = BatchNormalization()(conv3)
-# #layer 4
-# conv_block4 = resblock(conv3,[256,512])
-# conv_block4 = BatchNormalization()(conv_block4)
-# conv_block4 = Dropout(0.2)(conv_block4)
-# conv4 = Conv2D(512,(3,3),padding='same',strides=(4,4),activation='relu')(conv_block4)
-# conv4 = BatchNormalization()(conv4)
-# #Flatten
-# flat = Flatten()(conv4)
-# #Dense layers
-# dense_1 = Dense(1024,activation='relu')(flat)
-# dense_1 = Dropout(0.5)(dense_1)
-# dense_2 = Dense(512,activation='relu')(dense_1)
-# dense_2 = Dropout(0.5)(dense_2)
-# out = Dense(1,activation='sigmoid')(dense_2)
-
-# model = Model(inputs=inp,outputs=out)
-# model.summary()
 plot_model(model, to_file='model.png')
 
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
