@@ -19,9 +19,9 @@ import os
 base_dir = os.getcwd() #getting current directory
 
 target_shape = (224,224) #defining the input shape
-train_dir = base_dir+"\\Pneumonia_Detection\\chest_xray\\train" # 
-val_dir = base_dir+"\\Pneumonia_Detection\\chest_xray\\val"     # -- Directories for data
-test_dir = base_dir+"\\Pneumonia_Detection\\chest_xray\\test"   # 
+train_dir = base_dir+"\\chest_xray\\train" # 
+val_dir = base_dir+"\\chest_xray\\val"     # -- Directories for data
+test_dir = base_dir+"\\chest_xray\\test"   # 
 
 # loading the VGG16 model with imagenet weights without the FC layers
 vgg = VGG16(weights='imagenet',include_top=False,input_shape=(224,224,3))
