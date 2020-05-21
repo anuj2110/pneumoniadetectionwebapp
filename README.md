@@ -7,9 +7,10 @@
 3. ![Trained model file](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/model.h5)
 
 To run the app
-'''
+```python
 python app.py
-'''
+```
+
 
 You can see the reuslts below:
 
@@ -17,4 +18,4 @@ You can see the reuslts below:
 ![alt-text](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/demo1.gif)
 
 
-![alt-text](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/demo1.gif)
+![alt-text](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/demo0.gif)
