@@ -18,4 +18,4 @@ You can see the reuslts below:
 ![alt-text](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/demo1.gif)
 
 
-![alt-text](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/demo0.gif)
+![alt-text](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/demo.gif)
