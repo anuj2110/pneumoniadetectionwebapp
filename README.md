@@ -10,7 +10,7 @@ To run the app
 ```python
 python app.py
 ```
-
+*NOTE: for running train.py, change the directories to the train,test and validation dir according to your project settings*
 
 You can see the reuslts below:
 
