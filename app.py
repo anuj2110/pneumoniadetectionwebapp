@@ -3,6 +3,7 @@ from tensorflow.keras.models import load_model
 import os
 from PIL import Image
 import numpy as np
+from werkzeug.utils import secure_filename
 
 model_file = "model.h5"
 model = load_model(model_file)
@@ -40,20 +41,21 @@ def home():
     if request.method=='POST':
         if 'img' not in request.files:
             return render_template('home.html',filename="unnamed.png",message="Please upload an file")
-        f = request.files['img']  
+        f = request.files['img'] 
+        filename = secure_filename(f.filename) 
         if f.filename=='':
             return render_template('home.html',filename="unnamed.png",message="No file selected")
         if not ('jpeg' in f.filename or 'png' in f.filename or 'jpg' in f.filename):
             return render_template('home.html',filename="unnamed.png",message="please upload an image with .png or .jpg/.jpeg extension")
         files = os.listdir(app.config['UPLOAD_FOLDER'])
         if len(files)==1:
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
         else:
             files.remove("unnamed.png")
             file_ = files[0]
             os.remove(app.config['UPLOAD_FOLDER']+'/'+file_)
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
-        predictions = makePredictions(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        predictions = makePredictions(os.path.join(app.config['UPLOAD_FOLDER'],filename))
         return render_template('home.html',filename=f.filename,message=predictions,show=True)
     return render_template('home.html',filename='unnamed.png')
 
