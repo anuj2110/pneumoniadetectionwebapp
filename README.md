@@ -6,6 +6,8 @@
 2. [File for training the model](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/train.py)
 3. [Trained model file](https://github.com/anuj2110/pneumoniadetectionwebapp/blob/master/model.h5)
 
+*The web is deployed on Azure. [You can access it here](https://pneumoniawebapp.azurewebsites.net/)*
+
 To run the app
 ```python
 python app.py
